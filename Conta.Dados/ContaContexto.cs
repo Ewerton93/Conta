@@ -10,7 +10,9 @@ namespace Conta.Dados
         public DbSet<Banco> Bancos { get; set; }
 
         public ContaContexto(DbContextOptions options) : base(options)
-        { }
+        {
+            
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
