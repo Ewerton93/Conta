@@ -8,12 +8,12 @@ namespace Conta.WebApp.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class BancoController : ControllerBase
+    public class ContaBancariaController : ControllerBase
     {
-        private readonly IBancoRepositorio _bancoRepositorio;
-        public BancoController(IBancoRepositorio bancoRepositorio)
+        private readonly IContaBancariaRepositorio _contaBancariaRepositorio;
+        public ContaBancariaController(IContaBancariaRepositorio contaBancariaRepositorio)
         {
-            _bancoRepositorio = bancoRepositorio;
+            _contaBancariaRepositorio = contaBancariaRepositorio;
         }
 
         [HttpGet]
@@ -22,7 +22,7 @@ namespace Conta.WebApp.Controllers
         {
             try
             {
-                var retorno = Ok(_bancoRepositorio.ObterTodos());     
+                var retorno = Ok(_contaBancariaRepositorio.ObterTodos());     
                 return retorno;
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace Conta.WebApp.Controllers
         {
             try
             {
-               var banco =  _bancoRepositorio.ObterPorId(id);
+               var banco = _contaBancariaRepositorio.ObterPorId(id);
 
                 return Ok(banco);
             }
@@ -49,12 +49,12 @@ namespace Conta.WebApp.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Post([FromBody] Banco banco)
+        public IActionResult Post([FromBody] ContaBancaria contaBancaria)
         {
             try
             {
-                _bancoRepositorio.Adicionar(banco);
-                return Ok(banco);
+                _contaBancariaRepositorio.Adicionar(contaBancaria);
+                return Ok(contaBancaria);
             }
             catch (Exception ex)
             {
@@ -64,12 +64,12 @@ namespace Conta.WebApp.Controllers
 
         [HttpPut]
         [Authorize]
-        public IActionResult Put([FromBody] Banco banco)
+        public IActionResult Put([FromBody] ContaBancaria contaBancaria)
         {
             try
             {
-                _bancoRepositorio.Atualizar(banco);
-                return Ok(banco);
+                _contaBancariaRepositorio.Atualizar(contaBancaria);
+                return Ok(contaBancaria);
             }
             catch (Exception ex)
             {
@@ -79,12 +79,12 @@ namespace Conta.WebApp.Controllers
 
         [HttpDelete]
         [Authorize]
-        public IActionResult Delete([FromBody] Banco banco)
+        public IActionResult Delete([FromBody] ContaBancaria contaBancaria)
         {
             try
             {
-                _bancoRepositorio.Remover(banco);
-                return Ok(banco);
+                _contaBancariaRepositorio.Remover(contaBancaria);
+                return Ok(contaBancaria);
             }
             catch (Exception ex)
             {

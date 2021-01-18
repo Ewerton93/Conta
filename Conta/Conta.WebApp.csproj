@@ -5,18 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ContaFrontEnd\**" />
     <Compile Remove="FrontEnd\**" />
+    <Content Remove="ContaFrontEnd\**" />
     <Content Remove="FrontEnd\**" />
+    <EmbeddedResource Remove="ContaFrontEnd\**" />
     <EmbeddedResource Remove="FrontEnd\**" />
+    <None Remove="ContaFrontEnd\**" />
     <None Remove="FrontEnd\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ContaFrontEnd\src\app\autorizazao\guarda.rotas.ts" />
-    <None Remove="ContaFrontEnd\src\app\model\usuario.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
@@ -31,8 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ContaFrontEnd\src\app\autorizazao\guarda.rotas.ts" />
-    <TypeScriptCompile Include="ContaFrontEnd\src\app\model\usuario.ts" />
+    <Folder Include="ClientApp\src\assets\img\" />
   </ItemGroup>
 
 
