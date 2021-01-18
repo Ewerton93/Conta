@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "testeAngular": {
+    "conta": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -54,18 +54,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "testeAngular:build"
+            "browserTarget": "conta:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "testeAngular:build:production"
+              "browserTarget": "conta:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "testeAngular:build"
+            "browserTarget": "conta:build"
           }
         },
         "test": {
@@ -115,7 +115,7 @@
         }
       }
     },
-    "testeAngular-e2e": {
+    "conta-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -123,7 +123,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "testeAngular:serve"
+            "devServerTarget": "conta:serve"
           }
         },
         "lint": {
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "testeAngular"
+  "defaultProject": "conta"
 }
