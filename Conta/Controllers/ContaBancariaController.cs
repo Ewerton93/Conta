@@ -11,9 +11,13 @@ namespace Conta.WebApp.Controllers
     public class ContaBancariaController : ControllerBase
     {
         private readonly IContaBancariaRepositorio _contaBancariaRepositorio;
-        public ContaBancariaController(IContaBancariaRepositorio contaBancariaRepositorio)
+
+        private readonly IBancoRepositorio _bancoRepositorio;
+
+        public ContaBancariaController(IContaBancariaRepositorio contaBancariaRepositorio, IBancoRepositorio bancoRepositorio)
         {
             _contaBancariaRepositorio = contaBancariaRepositorio;
+            _bancoRepositorio = bancoRepositorio;
         }
 
         [HttpGet]
@@ -31,15 +35,14 @@ namespace Conta.WebApp.Controllers
             }
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         [Authorize]
         public ActionResult Get(long id)
         {
             try
             {
-               var banco = _contaBancariaRepositorio.ObterPorId(id);
-
-                return Ok(banco);
+               var conta = _contaBancariaRepositorio.ObterPorId(id);
+               return Ok(conta);
             }
             catch (Exception ex)
             {
@@ -52,8 +55,28 @@ namespace Conta.WebApp.Controllers
         public IActionResult Post([FromBody] ContaBancaria contaBancaria)
         {
             try
-            {
+            {                
                 _contaBancariaRepositorio.Adicionar(contaBancaria);
+                return Ok(contaBancaria);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }        
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public IActionResult Put(long id, [FromBody] ContaBancaria contaBancaria)
+        {
+            try
+            {
+                var conta = _contaBancariaRepositorio.ObterPorId(id);
+                
+                conta.Atualizar(contaBancaria.Banco, contaBancaria.NumeroConta, contaBancaria.NumeroAgencia, contaBancaria.Cpf, contaBancaria.Nome, contaBancaria.Cnpj, contaBancaria.RazaoSocial);
+                
+                _contaBancariaRepositorio.Atualizar(conta);
+                
                 return Ok(contaBancaria);
             }
             catch (Exception ex)
@@ -62,14 +85,39 @@ namespace Conta.WebApp.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}/ativar")]
         [Authorize]
-        public IActionResult Put([FromBody] ContaBancaria contaBancaria)
+        public IActionResult Ativar(long id)
         {
             try
             {
-                _contaBancariaRepositorio.Atualizar(contaBancaria);
-                return Ok(contaBancaria);
+                var conta = _contaBancariaRepositorio.ObterPorId(id);
+
+                conta.SetAtivar();
+
+                _contaBancariaRepositorio.Adicionar(conta);
+
+                return Ok(conta);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPut("{id}/inativar")]
+        [Authorize]
+        public IActionResult Inativar(long id)
+        {
+            try
+            {
+                var conta = _contaBancariaRepositorio.ObterPorId(id);
+
+                conta.SetInativar();
+
+                _contaBancariaRepositorio.Adicionar(conta);
+
+                return Ok(conta);
             }
             catch (Exception ex)
             {
@@ -91,6 +139,5 @@ namespace Conta.WebApp.Controllers
                 return BadRequest(ex.ToString());
             }
         }
-
     }
 }

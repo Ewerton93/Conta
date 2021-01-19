@@ -33,6 +33,14 @@ namespace Conta.Dados.Repositorio
             return contaContexto.Set<TEntity>().ToList();
         }
 
+        public void Remover(long id)
+        {
+            var entity = contaContexto.Set<TEntity>().Find(id);
+            contaContexto.Remove(entity);
+            contaContexto.SaveChanges();
+        }
+
+
         public void Remover(TEntity entity)
         {
             contaContexto.Remove(entity);

@@ -10,60 +10,65 @@ namespace Conta.Dominio.Entidade
         public long Id { get; protected set; }
 
         [Required]
-        public Banco Banco { get; protected set; }
+        public Banco Banco { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(10)")]
-        public string NumeroConta { get; protected set; }
+        public string NumeroConta { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(16)")]
-        public string NumeroAgencia { get; protected set; }
+        [Column(TypeName = "varchar(10)")]
+        public string NumeroAgencia { get; set; }
 
-        [Column(TypeName = "varchar(16)")]
-        public string Cpf { get; protected set; }
+        [Column(TypeName = "varchar(20)")]
+        public string Cpf { get; set; }
 
-        [Column(TypeName = "varchar(16)")]
-        public string Cnpj { get; protected set; }
-
-        [Column(TypeName = "varchar(150)")]
-        public string Nome { get; protected set; }
+        [Column(TypeName = "varchar(20)")]
+        public string Cnpj { get; set; }
 
         [Column(TypeName = "varchar(150)")]
-        public string RazaoSocial { get; protected set; }
+        public string Nome { get;  set; }
+
+        [Column(TypeName = "varchar(150)")]
+        public string RazaoSocial { get;  set; }
 
         [Required]
-        public DateTime DataAbertura { get; protected set; }
+        public DateTime DataAbertura { get; set; }
+
+        [Required]
+        public bool Status { get; set; }
 
         public ContaBancaria()
         {
 
         }
 
-        public ContaBancaria CriarContaPessoaFisica(Banco banco, string numeroConta, string numeroAgencia, string cpf, string nome, DateTime dataAbertura)
+        public ContaBancaria(Banco banco, string numeroConta, string numeroAgencia, string cpf, string nome, string cnpj, string razaoSocial, DateTime dataAbertura)
         {
             Banco = banco;
             NumeroConta = numeroConta;
             NumeroAgencia = numeroAgencia;
             Cpf = cpf;
             Nome = nome;
+            Cnpj = cnpj;
+            RazaoSocial = razaoSocial;
             DataAbertura = dataAbertura;
-
-            return this;
         }
 
-        public ContaBancaria CriarContaPessoaJuridica(Banco banco, string numeroConta, string numeroAgencia, string cnpj, string razaoSocial, DateTime dataAbertura)
+        public void Atualizar(Banco banco, string numeroConta, string numeroAgencia, string cpf, string nome, string cnpj, string razaoSocial)
         {
             Banco = banco;
             NumeroConta = numeroConta;
             NumeroAgencia = numeroAgencia;
+            Cpf = cpf;
+            Nome = nome;
             Cnpj = cnpj;
             RazaoSocial = razaoSocial;
-            DataAbertura = dataAbertura;
-
-            return this;
         }
 
+        public void SetAtivar() => Status = true;
+
+        public void SetInativar() => Status = false;
     }
 
 }
