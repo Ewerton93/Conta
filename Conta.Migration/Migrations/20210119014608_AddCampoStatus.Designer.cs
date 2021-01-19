@@ -4,14 +4,16 @@ using Conta.Dados;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Conta.Migration.Migrations
 {
     [DbContext(typeof(ContaContexto))]
-    partial class ContaContextoModelSnapshot : ModelSnapshot
+    [Migration("20210119014608_AddCampoStatus")]
+    partial class AddCampoStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
